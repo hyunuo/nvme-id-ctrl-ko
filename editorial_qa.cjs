@@ -1,0 +1,26 @@
+const {chromium}=require(process.argv[2]||'playwright');
+const fs=require('fs'),path=require('path'),{pathToFileURL}=require('url');
+(async()=>{
+ const d=JSON.parse(fs.readFileSync(path.join(__dirname,'content.json'),'utf8')),assert=(v,m)=>{if(!v)throw Error(m);};
+ const f=id=>d.fields.find(f=>f.id===id);
+ assert(d.editorial_audit.fields.length===152,'Every byte range accounted for');
+ assert(d.fields.every(f=>f.rules.every(r=>!r.condition.startsWith('비트 ')&&r.condition!=='필드 값을 해석할 때')),'Copied definition returned');
+ assert(f('MEC').rules.some(r=>r.observe.includes('존재 여부')),'MEC obligation lost');
+ assert(f('OACS').rules.some(r=>r.expected.includes('Directive Receive')),'Directive obligation lost');
+ assert(f('ONCS').rules.some(r=>r.condition.includes('RESERVS=1')),'Reservation obligation lost');
+ assert(f('FNA').rules.some(r=>r.observe.includes('실제 영향을 받은 namespace')),'Format scope lost');
+ assert(f('SGLS').rules.some(r=>r.condition.includes('LLDTS=0')),'SGL equality lost');
+ assert(f('SSVID').rules.length===1&&f('SSVID').rules[0].observe.includes('PCI Header.SS'),'SSVID comparison');
+ assert(!f('RTD3R').rules.length&&f('RTD3R').interpretation_notes.length,'Interpretation separated');
+ const b=await chromium.launch({channel:'msedge',headless:true}),c=await b.newContext({offline:true,viewport:{width:1440,height:1000}}),p=await c.newPage(),errors=[];
+ p.on('pageerror',e=>errors.push(String(e)));const url=pathToFileURL(path.join(__dirname,'output/id_ctrl_ko.html')).href;
+ await p.goto(url+'#editorial');assert(await p.locator('#content tbody tr').count()===152,'Audit field inventory');
+ await p.screenshot({path:path.join(__dirname,'output/qa/editorial.png')});
+ await p.goto(url+'#RTD3R');const notes=p.locator('#content details').filter({hasText:'값 해석과 주의사항'});await notes.locator('summary').click();
+ assert(await notes.innerText().then(t=>t.includes('미보고')&&t.includes('정합성 조건 수에 포함하지 않음')),'Guidance visible');
+ await p.goto(url+'#SSVID');assert(await p.locator('.rule').count()===1,'SSVID no duplicate');assert(await p.locator('#content').innerText().then(t=>!t.includes('정보가 부족하면')&&t.includes('PCI Header.SS')),'Repeated boilerplate removed');
+ await p.screenshot({path:path.join(__dirname,'output/qa/ssvid_reviewed.png')});
+ await p.goto(url+'#consistency');await p.locator('#overview-status').selectOption('별도 조건 없음');assert(await p.locator('.check-row').count()===d.fields.filter(f=>f.overview_status==='별도 조건 없음').length,'No fabricated checks');
+ await p.setViewportSize({width:390,height:844});await p.goto(url+'#editorial');assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Mobile audit clipping');
+ assert(!errors.length,'JS errors');const report={status:'passed',field_ranges:152,definition_items_separated:d.editorial_audit.removed.length,explicit_checks:d.editorial_audit.added.length,offline:true,javascript_errors:errors.length};fs.writeFileSync(path.join(__dirname,'output/editorial_browser_validation.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));await b.close();
+})().catch(e=>{console.error(e);process.exit(1)});

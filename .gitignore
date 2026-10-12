@@ -1,0 +1,39 @@
+# Locally supplied specification PDFs and raw extraction caches
+*.pdf
+source/*_pages.json
+source/extracted.json
+source/inventory.txt
+nvme.h
+
+# Environment and credentials
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.env
+.env.*
+*.pem
+*.key
+
+# Device/project evidence and local QA fixtures
+projects/
+review-projects/
+*.bin
+*.dump
+output/*
+!output/id_ctrl_ko.html
+!output/user_guide.html
+!output/validation.json
+!output/user_guide_validation.json
+!output/enhancement_validation.json
+!output/project_validation.json
+!output/source_coverage.json
+!output/implementation_handoff.md
+!output/source_notes.md
+
+# IDE/OS files
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

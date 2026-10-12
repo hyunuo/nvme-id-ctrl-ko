@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-12T09:31:15.715Z",
+  "html_sha256": "b93e418de631aa3214893b298d627a8891c6cf0cc0ef70cae9147dfe7e80ad2e",
+  "status": "passed",
+  "offline": true,
+  "controller_namespace_isolation": true,
+  "uncommitted_navigation_cancel": true,
+  "firmware_identity_protected": true,
+  "missing_value_and_reviewer_blocked": true,
+  "observation_unknown_preserved": true,
+  "context_recheck": true,
+  "unit_conversion": true,
+  "print_navigation_hidden": true,
+  "stage_entrypoints": 4
+}

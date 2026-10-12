@@ -1,0 +1,44 @@
+{
+  "pcie": {
+    "filename": "PCIe-Transport-1.1.pdf",
+    "version": "1.1",
+    "url": "https://nvmexpress.org/wp-content/uploads/NVM-Express-PCI-Express-Transport-Specification-Revision-1.1-2024.08.05-Ratified.pdf",
+    "sha256": "84227a85d98f740b651b0c661225e361b8685d6e699b0c162d8533abef8f792c",
+    "pages": 44,
+    "retrieved_at": "2026-10-12T06:59:00.631100+00:00",
+    "status": "acquired"
+  },
+  "mi20": {
+    "filename": "NVMe-MI-2.0.pdf",
+    "version": "2.0",
+    "url": "https://nvmexpress.org/wp-content/uploads/NVM-Express-Management-Interface-Specification-Revision-2.0-2024.08.05-Ratified.pdf",
+    "sha256": "cd31683de56083a65fe6284878a5e177d560dbb46e5f86593236a42bed26c71c",
+    "pages": 208,
+    "retrieved_at": "2026-10-12T06:59:19.924798+00:00",
+    "status": "acquired"
+  },
+  "mi12d": {
+    "filename": "NVMe-MI-1.2d.pdf",
+    "version": "1.2d",
+    "url": "https://nvmexpress.org/wp-content/uploads/NVM-Express-Management-Interface-Specification-1.2d-2024.01.10-Ratified.pdf",
+    "sha256": "bc4cf78bcd73fead76f81b3e5ba9b66c0637e4705756ac74c3b2394a169e230f",
+    "pages": 165,
+    "retrieved_at": "2026-10-12T06:59:32.669943+00:00",
+    "status": "acquired"
+  },
+  "ieee": {
+    "filename": "IEEE-EUI-guidelines.pdf",
+    "version": "snapshot",
+    "url": "https://standards.ieee.org/wp-content/uploads/import/documents/tutorials/eui.pdf",
+    "sha256": "6ac29c6522e29c417edc1cd77d7c77e184fddf5926c374735a26e6b01f913163",
+    "pages": 19,
+    "retrieved_at": "2026-10-12T07:00:14.950969+00:00",
+    "status": "acquired"
+  },
+  "oui": {
+    "url": "https://standards-oui.ieee.org/oui/oui.csv",
+    "status": "unavailable",
+    "reason": "IEEE official registry returned HTTP 418 on both public CSV endpoints",
+    "attempted_at": "2026-10-12T07:37:36.493859+00:00"
+  }
+}

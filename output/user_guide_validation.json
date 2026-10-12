@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "checked_at": "2026-10-12T11:58:31.321Z",
+  "guide_sha256": "99beba17e40bea8c0a86c63b4a69482365778d7e2e96253f4ce672d3460dc617",
+  "sections": 10,
+  "links": 24,
+  "app_routes": 13,
+  "offline": true,
+  "mobile_width": 390,
+  "page_overflow": false,
+  "print_details_expanded": true,
+  "app_help_link": true,
+  "js_errors": 0,
+  "remote_requests": 0
+}
